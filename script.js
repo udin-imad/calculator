@@ -2,7 +2,7 @@
 let firstNum = '';
 let secondNum = '';
 let operator = null;
-let flagResetDisplay = false
+let flagResetDisplay = false;
 
 // DOM selection
 const currentDisplay = document.querySelector('#current-display');
@@ -24,7 +24,7 @@ equalButton.addEventListener('click', calculate);
 
 // Event Handler
 function getDisplay(number) {
-  if (currentDisplay.textContent === '0') currentDisplay.textContent = '';
+  if (currentDisplay.textContent === '0' || flagResetDisplay) resetDisplay();
   currentDisplay.textContent += number;
 };
 
@@ -35,7 +35,7 @@ function deleteDisplay() {
 };
 
 function getPoint() {
-  if (currentDisplay.textContent.includes('.')) return
+  if (currentDisplay.textContent.includes('.')) return;
   currentDisplay.textContent += pointButton.textContent
 };
 
@@ -44,7 +44,7 @@ function clear() {
   secondNum = '';
   operator = null
   currentDisplay.textContent = '0';
-  latestDisplay.textContent = ''
+  latestDisplay.textContent = '';
 };
 
 function roundIt(ex) {
@@ -52,34 +52,46 @@ function roundIt(ex) {
 };
 
 function setOperation(op) {
-  operator = op
+  if(op !== null) calculate();
+  operator = op;
   firstNum = currentDisplay.textContent;
-  currentDisplay.textContent = `${currentDisplay.textContent}${op}`;
+  latestDisplay.textContent = `${currentDisplay.textContent}${op}`;
+  flagResetDisplay = true;
 };
 
 function calculate() {
-  if (operator === null) return
-  secondNum = currentDisplay.textContent
-  firstNum = roundIt(operate(firstNum, secondNum, operator))
-  latestDisplay.textContent = `${firstNum}${operator}${secondNum}`
-  currentDisplay.textContent = firstNum
+  if (operator === null || flagResetDisplay) return;
+  if (operator === '÷' && currentDisplay.textContent === '0') {
+    alert("can't divide by 0")
+    return clear()
+  }
+  secondNum = currentDisplay.textContent;
+  latestDisplay.textContent = `${latestDisplay.textContent}${secondNum}${equalButton.textContent}`;
+  firstNum = roundIt(operate(firstNum, secondNum, operator));
+  currentDisplay.textContent = firstNum;
+  operator = null;
 };
+
+function resetDisplay() {
+  currentDisplay.textContent = '';
+  flagResetDisplay = false;
+}
 
 // Arithmetical function
 function add(a, b) {
-  return a + b
+  return a + b;
 };
 
 function subtract(a, b) {
-  return a - b
+  return a - b;
 };
 
 function multiply(a, b) {
-  return a * b
+  return a * b;
 };
 
 function divide(a, b) {
-  return a / b
+  return a / b;
 };
 
 // Operate Funtion
@@ -97,6 +109,6 @@ function operate(a, b, op) {
     case '÷':
       return divide(a, b);
     default:
-      alert('incorrect operator') 
+      return;
   }
 };
