@@ -43,3 +43,39 @@ function clear() {
   currentDisplay.textContent = '0';
   latestDisplay.textContent = ''
 };
+
+// Arithmetical function
+function add(a, b) {
+  return a + b
+};
+
+function subtract(a, b) {
+  return a - b
+};
+
+function multiply(a, b) {
+  return a * b
+};
+
+function divide(a, b) {
+  return a / b
+};
+
+// Operate Funtion
+function operate(a, b, op) {
+  a = parseFloat(a);
+  b = parseFloat(b);
+
+  switch(op) {
+    case '+':
+      return add(a, b);
+    case '-':
+      return subtract(a, b);
+    case 'x':
+      return multiply(a, b);
+    case '÷':
+      return divide(a, b);
+    default:
+      return
+  }
+};
