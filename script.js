@@ -2,6 +2,7 @@
 let firstNum = '';
 let secondNum = '';
 let operator = null;
+let flagResetDisplay = false
 
 // DOM selection
 const currentDisplay = document.querySelector('#current-display');
@@ -14,10 +15,12 @@ const deleteButton = document.querySelector('#delete');
 const clearButton = document.querySelector('#clear');
 
 // Event Listeners
-numberButton.forEach(button => {button.addEventListener('click', () => getDisplay(button.textContent))});
+numberButton.forEach(button => button.addEventListener('click', () => getDisplay(button.textContent)));
+operatorButton.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
 deleteButton.addEventListener('click', deleteDisplay);
 pointButton.addEventListener('click', getPoint);
 clearButton.addEventListener('click', clear);
+equalButton.addEventListener('click', calculate);
 
 // Event Handler
 function getDisplay(number) {
@@ -42,6 +45,24 @@ function clear() {
   operator = null
   currentDisplay.textContent = '0';
   latestDisplay.textContent = ''
+};
+
+function roundIt(ex) {
+  return Math.round(ex * 100) / 100;
+};
+
+function setOperation(op) {
+  operator = op
+  firstNum = currentDisplay.textContent;
+  currentDisplay.textContent = `${currentDisplay.textContent}${op}`;
+};
+
+function calculate() {
+  if (operator === null) return
+  secondNum = currentDisplay.textContent
+  firstNum = roundIt(operate(firstNum, secondNum, operator))
+  latestDisplay.textContent = `${firstNum}${operator}${secondNum}`
+  currentDisplay.textContent = firstNum
 };
 
 // Arithmetical function
@@ -70,12 +91,12 @@ function operate(a, b, op) {
     case '+':
       return add(a, b);
     case '-':
-      return subtract(a, b);
+      return subtract(a, b);      
     case 'x':
       return multiply(a, b);
     case '÷':
       return divide(a, b);
     default:
-      return
+      alert('incorrect operator') 
   }
 };
