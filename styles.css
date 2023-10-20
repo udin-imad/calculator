@@ -18,16 +18,19 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   width: 300px;
-  border: 1px solid black;
+  border: 1px solid #272727;
+  padding: 40px 20px;
+  background-color: #272727;
+  border-radius: 8px;
 }
 
 .display {
-  border: 1px solid black;
+  border: 1px solid #272727;
 }
 
 #latest-display,
 #current-display {
-  min-height: 40px;
+  min-height: 43px;
   text-align: right;
   font-size: 2.3rem;
   background-color: #464646;
@@ -38,6 +41,7 @@ body {
 }
 
 .buttons {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -49,7 +53,7 @@ body {
   align-items: center;
   height: 73px;
   width: 73px;
-  border: 1px solid black;
+  border: 1px solid #272727;
   color: white;
   cursor: pointer;
 }
