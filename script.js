@@ -112,3 +112,16 @@ function operate(a, b, op) {
       return;
   }
 };
+
+// THeme
+const themeButton = document.querySelector('#theme-color')
+const root = document.documentElement;
+
+function setTheme() {
+  const getTheme = root.className === 'dark' ? 'light':'dark';
+  const textButton = themeButton.textContent === 'Light Mode' ? 'Dark Mode':'Light Mode';
+  root.className = getTheme
+  themeButton.textContent = textButton 
+}
+
+themeButton.addEventListener('click', setTheme);
